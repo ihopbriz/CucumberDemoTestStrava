@@ -7,9 +7,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.BingHomePage;
 
 import java.time.Duration;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.*;
 
 public class BingSteps {
     WebDriver driver;
@@ -24,16 +27,18 @@ public class BingSteps {
 
     @When("User searches for {string}")
     public void userSearchesFor(String queryString) {
-        WebElement queryInput = driver.findElement(By.name("q"));
-        queryInput.sendKeys(queryString);
-        queryInput.submit();
+        BingHomePage bhp = new BingHomePage(driver);
+        bhp.searchFor(queryString);
     }
 
     @Then("First three results contains {string}")
     public void firstThreeResultsContains(String resultString) {
         List<WebElement> headersWithSearchResult = driver.findElements(By.cssSelector("h2"));
 
-        System.out.println(headersWithSearchResult.get(0).getText());
+        String firstResult = headersWithSearchResult.get(0).getText();
+        // assertJ - check the actual result
+        assertThat(firstResult).containsIgnoringCase(resultString);
+
         System.out.println(headersWithSearchResult.get(1).getText());
         System.out.println(headersWithSearchResult.get(2).getText());
     }
