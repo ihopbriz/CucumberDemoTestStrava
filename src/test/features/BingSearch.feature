@@ -4,16 +4,15 @@ Feature: BingSearch
   and running and user has possibility to search something
 
   @SMOKE
-  Scenario: Search normal word in bing.com
+  Scenario Outline: Search normal word in bing.com
     Given User is on bing.com webpage
-    When User searches for "light beer"
-    Then First three results contains "light beer"
+    When User searches for "<queryString>"
+    Then First three results contains "<resultString>"
 
-  @TC_5645
-  Scenario: Search not normal word in bing.com
-    Given User is on bing.com webpage
-    When User searches for "dark beer"
-    Then First three results contains "dark beer"
+    Examples:
+    | queryString | resultString |
+    | light beer  | light beer   |
+    | dark beer   | dark beer    |
 
 
   @TC_5645
