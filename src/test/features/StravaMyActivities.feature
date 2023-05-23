@@ -10,4 +10,4 @@ Feature: My Activities
 
     Examples:
       | username | password |
-      | ihopbriz@gmail.com  | Butt1nn!   |
+      | ihopbriz@gmail.com  | what   |
